@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../bower_components/bulma/css/bulma.css">
+    <link rel="stylesheet" href="../bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <style media="screen">
+      html, body, webview {
+        height: 100%
+      }
+    </style>
+  </head>
+  <body>
+
+    <section id="loader" class="hero is-fullheight has-text-centered">
+      <div class="hero-body">
+        <div class="container">
+
+          <div class="busy">
+            <h1 class="title">
+              <span class="icon is-large">
+                <i class="fa fa-cog fa-spin fa-fw"></i>
+              </span>
+            </h1>
+          </div>
+
+          <div class="failed is-hidden">
+            <h1 class="title">Failed to Load</h1>
+            <h2 class="subtitle">Please check your network connection!</h2>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <a id="mark-read" class="is-hidden">
+      <div class="block">
+        <span class="tag is-large is-primary">
+          <span class="icon">
+            <i class="fa fa-check-circle fa-inverse"></i>
+          </span>&nbsp; Read
+        </div>
+      </a>
+
+
+    <webview src="about:blank"></webview>
+
+    <script>
+
+      //jQuery
+      $ = require('jquery')
+
+      // query-string object. queryString and queryParams are members of
+      // npm module query-string!
+      const queryString = require('query-string')
+
+      //parse query string
+      const queryParams = queryString.parse(location.search)
+
+      // Get item index
+      let itemIndex = queryParams.itemIndex
+
+      //get query string 'url'
+      let url = decodeURIComponent(queryParams.url)
+
+      $('webview').one('dom-ready', (e) => {
+
+        //load item content url into webview
+        e.currentTarget.loadURL(url)
+      }).one('did-finish-load', () => {
+
+        //hide loader to reveal window
+        $('#loader').fadeOut(400)
+
+        $('#mark-read').removeClass('is-hidden')
+
+        //handle failed load
+      }).on('did-fail-load', () => {
+
+        $('#mark-read').addClass('is-hidden')
+        $('#loader .busy').addClass('is-hidden')
+        $('#loader').fadeIn(100)
+        $('#loader .failed').removeClass('is-hidden')
+      })
+
+      // handle mark-read click (delete)
+      $('#mark-read').click(() => {
+
+        // parent window (.opener)
+        // eval is considered UNSAFE in normal browsers, but acceptable
+        // in electron as there is more control over browser window code.
+        window.opener.eval(`deleteItem(${itemIndex})`)
+        window.close()
+      })
+
+    </script>
+  </body>
+</html>
