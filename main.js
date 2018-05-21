@@ -6,7 +6,7 @@ const readItem = require('./readItem')
 
 
 // Enable Electron-Reload
-require('electron-reload')(__dirname)
+//require('electron-reload')(__dirname)
 
 
 // LIsten for new read item
