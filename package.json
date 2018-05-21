@@ -21,7 +21,8 @@
     "win": {
       "certificateFile": "private/TomQuinnNZ.pfx",
       "verifyUpdateCodeSignature": false,
-      "publisherName": "TomQuinnNZ"
+      "publisherName": "TomQuinnNZ",
+      "publish": ["github"]
     }
   },
   "dependencies": {
