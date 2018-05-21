@@ -1,18 +1,15 @@
 {
   "name": "ReadItBasic",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "description": "A small Electron application for saving webpages",
   "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "author": "Tom Quinn",
-  "homepage": "https://github.com/tomquinnnz",
   "scripts": {
     "start": "electron .",
     "win": "electron-builder -w",
     "make-cert": "electron-builder create-self-signed-cert -p TomQuinnNZ"
   },
+  "author": "Tom Quinn",
+  "homepage": "https://github.com/tomquinnnz",
   "build": {
     "appId": "com.tomquinnnz.readitbasic",
     "directories": {
@@ -22,11 +19,15 @@
       "certificateFile": "private/TomQuinnNZ.pfx",
       "verifyUpdateCodeSignature": false,
       "publisherName": "TomQuinnNZ",
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     }
   },
   "dependencies": {
+    "electron-log": "^2.2.14",
     "electron-reload": "^1.2.2",
+    "electron-updater": "^2.21.10",
     "jquery": "^3.3.1",
     "query-string": "^6.1.0"
   },

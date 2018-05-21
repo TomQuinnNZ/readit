@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Downloading ReadIt Update</title>
+  </head>
+  <body>
+    <progress style="width:100%;" value="0" max="100"></progress>
+  </body>
+
+  <script>
+
+    $ = require('jquery')
+
+    //require ipc
+    const {ipcRenderer} = require('electron')
+
+    //request progress every second
+    setInterval(() => {
+
+      // request a sync response via IPC
+      let progress = ipcRenderer.sendSync('download-progress-request')
+
+      //update the progress element
+      $('progress').val(progress)
+
+    }, 1000)
+  </script>
+</html>
