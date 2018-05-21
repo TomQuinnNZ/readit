@@ -10,7 +10,8 @@
   "homepage": "https://github.com/tomquinnnz",
   "scripts": {
     "start": "electron .",
-    "win": "electron-builder -w"
+    "win": "electron-builder -w",
+    "make-cert": "electron-builder create-self-signed-cert -p TomQuinnNZ"
   },
   "build": {
     "appId": "com.tomquinnnz.readitbasic",
@@ -18,8 +19,10 @@
       "buildResources": "."
     },
     "win": {
-
-    },
+      "certificateFile": "private/TomQuinnNZ.pfx",
+      "verifyUpdateCodeSignature": false,
+      "publisherName": "TomQuinnNZ"
+    }
   },
   "dependencies": {
     "electron-reload": "^1.2.2",

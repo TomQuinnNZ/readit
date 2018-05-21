@@ -5,10 +5,6 @@ const mainWindow = require('./mainWindow')
 const readItem = require('./readItem')
 
 
-// Enable Electron-Reload
-require('electron-reload')(__dirname)
-
-
 // LIsten for new read item
 ipcMain.on('new-item', (e, itemURL) => {
     // Get read item with readItem module
